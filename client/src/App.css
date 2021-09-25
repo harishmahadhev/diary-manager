@@ -1,0 +1,676 @@
+/*
+
+Created by Matej Kovac
+http://moodydev.io
+
+*/
+
+/* FONT IMPORTS */
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+@import url('https://fonts.googleapis.com/css2?family=Pompiere&display=swap');
+
+.icon {
+  font-family: "Material Icons", serif;
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga";
+}
+
+/* VARIABLES */
+
+:root {
+  --main-color: #1a8fff;
+  --text-color: #777;
+  --text-color-light: #ccc;
+  --border-color: #eee;
+  --bg-color: #f9f9f9;
+  --neutral-color: #fff;
+}
+
+/* GENERAL */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-color);
+  background: var(--bg-color);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header {
+  display: block;
+  width: 100%;
+  padding: 1.75em 0;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--neutral-color);
+}
+
+header #logo {
+  font-size: 175%;
+  text-align: center;
+  color: var(--main-color);
+  line-height: 1;
+}
+
+header #logo .icon {
+  padding-right: 0.25em;
+}
+
+main {
+  display: block;
+  margin: 0 auto;
+  margin-top: 5em;
+  max-width: 50em;
+}
+
+/* GRID */
+
+.row {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.row-middle {
+  align-items: center;
+}
+
+.col {
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 100%;
+}
+
+.col-start {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.col-center {
+  justify-content: center;
+  text-align: center;
+}
+
+.col-end {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Calendar */
+
+.calendar {
+  display: block;
+  position: relative;
+  margin: 3px 10px;
+  border-radius: 10px;
+  background: var(--neutral-color);
+  border: 1px solid var(--border-color);
+}
+
+.calendar .header {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 115%;
+  padding: 1em 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.calendar .header .icon {
+  cursor: pointer;
+  transition: 0.15s ease-out;
+}
+
+.calendar .header .icon:hover {
+  transform: scale(1.75);
+  transition: 0.25s ease-out;
+  color: var(--main-color);
+}
+
+.calendar .header .icon:first-of-type {
+  margin-left: 1em;
+}
+
+.calendar .header .icon:last-of-type {
+  margin-right: 1em;
+}
+
+.calendar .days {
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--text-color-light);
+  font-size: 70%;
+  padding: 0.7em 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.calendar .body .cell {
+  position: relative;
+  height: 5em;
+  border-right: 1px solid var(--border-color);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--neutral-color);
+  transition: 0.1s ease-out;
+}
+
+.calendar .body .cell:hover {
+  background: var(--bg-color);
+  transition: .1s all ease;
+}
+
+.calendar .body .selected {
+  border-left: 5px solid transparent;
+  border-image: linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%);
+  border-image-slice: 10%;
+}
+
+.calendar .body .row {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.calendar .body .row:last-child {
+  border-bottom: none;
+}
+
+.calendar .body .cell:last-child {
+  border-right: none;
+}
+
+.calendar .body .cell .number {
+  position: absolute;
+  font-size: 82.5%;
+  line-height: 1;
+  top: 0.75em;
+  right: 0.75em;
+  font-weight: 700;
+}
+
+.calendar .body .disabled {
+  color: var(--text-color-light);
+  pointer-events: none;
+}
+
+.calendar .body .cell .bg {
+  font-weight: 500;
+  color: var(--main-color);
+  font-size: 14px;
+  padding-left: 3px;
+  overflow: auto;
+
+  transition: 0.25s ease-out;
+}
+
+.calendar .body .cell .bgList {
+  padding: 0px;
+  margin: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.calendar .body .cell .bgItem {
+  opacity: 0.2;
+  border-radius: 5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 0 5px;
+  margin: 5px;
+}
+
+.calendar .body .cell:hover .bgItem {
+  opacity: 1;
+}
+
+.calendar .body .cell.selected .bgItem {
+  opacity: 1;
+  background-image: linear-gradient(45deg, #1a8fff 0%, #53cbf1 40%);
+  color: white;
+}
+
+.calendar .body .cell:hover .bg,
+.calendar .body .selected .bg {
+  opacity: 1;
+  transition: 0.5s ease-in;
+}
+
+.calendar .body .col {
+  flex-grow: 0;
+  flex-basis: calc(100% / 7);
+  width: calc(100% / 7);
+}
+
+.CalendarModel {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  border-radius: 10px;
+  transform: scale(0);
+  background-color: white;
+  padding: 30px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 400px;
+  height: 400px;
+  transition: all .4s ease-in-out;
+}
+
+
+.CalendarModel.active {
+  transform-origin: center;
+  transform: scale(1);
+  transition: transform .3s ease-in-out cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modalClosebtn {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.App {
+  font-family: 'Pompiere',
+    cursive;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(242, 242, 253);
+  min-height: 100vh;
+}
+
+.editor {
+  padding: 5px;
+  margin-top: 10px;
+  min-height: 400px;
+  font-size: 20px;
+  overflow: visible;
+}
+
+
+.topbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  background-color: white;
+  padding: 30px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10px;
+  z-index: 100;
+}
+
+.topNavRight .topNavRightItems {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+}
+
+.topNavItem.active {
+  color: #1a8fff;
+}
+
+.topNavItem:hover {
+  color: #1a8fff;
+}
+
+.topNavLeft {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.createEntry {
+  margin: 10px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.createEntryTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin-bottom: 10px
+}
+
+.createEntryTitle button {
+  color: green;
+  font-size: 12px !important;
+}
+
+.createEntryTitle input {
+  width: 80%;
+}
+
+.createEntryTitle input,
+.createEntryTitle button {
+  border: none;
+  font-size: 18px;
+  font-family: 'Pompiere',
+    cursive;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: all .4s ease-in-out;
+
+}
+
+.createEntryTitle input:hover {
+  border-radius: 10px;
+  background-color: rgb(245, 245, 245);
+}
+
+.createEntryTitle button:hover {
+  background-color: rgb(215, 255, 215);
+
+}
+
+.editor {
+  color: black;
+  font-size: 15px;
+  min-height: 80%;
+  padding-left: 10px;
+}
+
+.Today {
+  margin: 20px;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.Todaydate {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.Todaydate div {
+  flex: 2;
+}
+
+
+.TodayList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.TodayListItem {
+  border: .5px dotted rgb(230, 230, 230);
+  border-radius: 10px;
+  padding: 10px 30px;
+  margin: 10px;
+}
+
+.Todaycontent {
+  text-align: center;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 50px auto;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.Activate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  margin: 50px auto;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.Activate .loginError {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.login form {
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login h1 {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.Logininput {
+  display: flex;
+  align-items: center;
+  border: .5px solid rgb(236, 236, 236);
+  border-radius: 5px;
+  padding: 5px;
+  width: 60%;
+  transition: all .4s ease-in-out;
+  margin: 10px;
+}
+
+.Logininput input {
+  color: rgb(131, 131, 131);
+  flex: 1;
+  border: none;
+  outline: none;
+}
+
+.Logininput .fa-check-circle {
+  color: rgb(93, 196, 127);
+}
+
+.Logininput .fa-times {
+  color: rgb(224, 71, 71);
+}
+
+.Logininput input::placeholder {
+  color: rgb(206, 206, 206);
+  font-size: 12px;
+}
+
+.Logininput:hover {
+  border: 1px solid rgb(187, 187, 187);
+}
+
+.loginBtn {
+  cursor: pointer;
+  padding: 5px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  color: white;
+  background-color: rgb(255, 97, 97);
+  transition: all .2s ease-in-out;
+  margin: 15px;
+
+}
+
+.loginBtn:hover {
+  background-color: rgb(255, 145, 145);
+}
+
+.loginHelperText {
+  margin-bottom: 20px;
+}
+
+.loginError {
+  color: red;
+  font-size: 12px;
+  letter-spacing: .01em;
+}
+
+.helperText {
+  margin: 10px;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homeSearch {
+  width: 15rem;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0 10px;
+  border: .5px solid transparent;
+}
+
+.homeSearch:hover {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border: .5px solid rgb(231, 231, 231);
+}
+
+.homeSearch input {
+  font-size: 12px;
+  border: none;
+  background-color: transparent;
+  padding-left: 10px;
+}
+
+.homeSearch input::placeholder {
+  color: rgb(211, 211, 211);
+}
+
+.homeSearch input:focus {
+  outline: none;
+}
+
+.homeList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.homeListItem {
+  list-style: none;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.homeListItem h1 {
+  margin: 0;
+}
+
+.homeListItemContent {
+  height: 100px;
+  overflow: hidden;
+}
+
+.homeListItemDate {
+  margin: 5px;
+  text-align: right;
+  font-family: sans-serif;
+  font-size: 10px;
+}
+
+/* 
+.sidebar {
+  flex: 1;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 60px);
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  box-shadow: var(--box-shadow);
+  font-family: var(--font-family);
+  background-color: var(--txt-white)
+}
+
+.sidebarLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-left: 20px;
+  margin-bottom: 30px;
+}
+
+.sidebarLogo .navbarLogo {
+  font-size: 10px;
+}
+
+.sidebarItem {
+  font-size: 15px;
+}
+
+.sidebarItem-inner {
+  margin: 10px 0;
+  padding: 10px 25px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  transition: color .3s ease 0s;
+
+}
+
+.sidebarItem-inner>span {
+  text-transform: capitalize;
+}
+
+.sidebarItem-inner>i {
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.sidebarItem-inner:hover {
+  color: var(--mail-color);
+}
+
+.sidebarItem-inner.active {
+  color: var(--txt-white);
+  border-radius: var(--border-radius);
+  background-image: linear-gradient(to right, var(--mail-color), var(--second-color));
+} */

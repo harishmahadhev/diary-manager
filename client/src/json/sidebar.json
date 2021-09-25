@@ -1,0 +1,17 @@
+[
+  {
+    "display_name": "Dashboard",
+    "route": "/dash/home",
+    "icon": "fa fa-tasks"
+  },
+  {
+    "display_name": "Charts",
+    "route": "/dash/charts",
+    "icon": "fa fa-bar-chart"
+  },
+  {
+    "display_name": "Views",
+    "route": "/dash/views",
+    "icon": "fa fa-eye"
+  }
+]
