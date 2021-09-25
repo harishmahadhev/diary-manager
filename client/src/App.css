@@ -2,6 +2,10 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 @import url('https://fonts.googleapis.com/css2?family=Pompiere&display=swap');
 
+button {
+  user-select: none;
+}
+
 .icon {
   font-family: "Material Icons", serif;
   font-style: normal;
@@ -304,6 +308,7 @@ main {
 
 
 .topbar {
+  user-select: none;
   position: sticky;
   top: 0;
   display: flex;
@@ -336,7 +341,7 @@ main {
 
 .topNavLeft {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 .createEntry {

@@ -14,7 +14,10 @@ export default function Topbar() {
   };
   return (
     <div className="topbar">
-      <div className="topNavLeft">#MyMo</div>
+      <div className="topNavLeft">
+        #<span style={{ color: "#FFBF00" }}>My</span>
+        <span style={{ color: "#FAA0A0" }}>Moments</span>
+      </div>
       <div className="topNavRight">
         <ul className="topNavRightItems">
           <Link to="/app/home" onClick={() => handleChange(1)}>
