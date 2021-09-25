@@ -26,9 +26,10 @@ eventRouter
         }
     })
 
-    .delete(async (req, res) => {
+    .patch(async (req, res) => {
         const { id } = req.body
         try {
+            if (!id) res.status(404).json({ message: "Something went wrong" })
             await eventModel.findByIdAndRemove(id)
             res.status(200).json({ message: "Deleted successfully" })
         } catch (error) {
